@@ -26,8 +26,8 @@ public:
         data_(inPlace, std::forward<Args>(args)...)
     {}
 
-    template<typename ValueT, typename InitListValT, typename... Args >
-    explicit DinamicObject(std::in_place_type_t<ValueT> inPlace,
+    template<typename ValT, typename InitListValT, typename... Args >
+    explicit DinamicObject(std::in_place_type_t<ValT> inPlace,
                            std::initializer_list<InitListValT> initList,
                            Args&&... args):
         data_(inPlace, initList, std::forward<Args>(args)...)
@@ -39,6 +39,19 @@ public:
         data_ = std::forward<OtherT>(other);
 
         return *this;
+    }
+
+    template<typename ValT, typename... Args>
+    std::decay_t<ValT>& emplace(Args&&... args)
+    {
+        return data_.emplace<ValT>(std::forward<Args>(args)...);
+    }
+
+    template<typename ValT, typename InitListValT, typename... Args>
+    std::decay_t<ValT>& emplace(std::initializer_list<InitListValT> initList,
+                                Args&&... args)
+    {
+        return data_.emplace<ValT>(initList, std::forward<Args>(args)...);
     }
 
     template<typename TatgetT>
