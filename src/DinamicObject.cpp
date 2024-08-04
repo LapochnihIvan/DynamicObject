@@ -1,3 +1,3 @@
 #include "DinamicObject.hpp"
 
-DinamicObject::DinamicObject() noexcept = default;
+constexpr DinamicObject::DinamicObject() noexcept = default;
