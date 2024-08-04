@@ -20,6 +20,14 @@ public:
         data_(std::forward<OtherT>(other))
     {}
 
+    template<typename OtherT>
+    DinamicObject& operator=(OtherT&& other) requires IsNotSelfT<OtherT>
+    {
+        data_ = std::forward<OtherT>(other);
+
+        return *this;
+    }
+
 private:
     std::any data_;
 };
