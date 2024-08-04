@@ -13,7 +13,7 @@ private:
         !std::is_base_of_v<T, DinamicObject>;
 
 public:
-    constexpr DinamicObject() noexcept;
+    constexpr DinamicObject() noexcept = default;
 
     template<typename OtherT>
     DinamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
