@@ -28,8 +28,51 @@ public:
         return *this;
     }
 
+    template<typename TatgetT>
+    operator TatgetT() &&
+    {
+        return std::any_cast<TatgetT>(std::move(data_));
+    }
+
+    template<typename TatgetT>
+    operator TatgetT&() &
+    {
+        validateCastType<TatgetT>();
+
+        return *std::any_cast<TatgetT>(&data_);
+    }
+
+    template<typename TatgetT>
+    operator const TatgetT&() const &
+    {
+        validateCastType<TatgetT>();
+
+        return *std::any_cast<const TatgetT>(&data_);
+    }
+
+    template<typename TatgetT>
+    operator TatgetT*() & noexcept
+    {
+        return std::any_cast<TatgetT>(&data_);
+    }
+
+    template<typename TatgetT>
+    operator const TatgetT*() const & noexcept
+    {
+        return std::any_cast<TatgetT>(&data_);
+    }
+
 private:
     std::any data_;
+
+    template<typename CastT>
+    void validateCastType()
+    {
+        if (data_.type() != typeid(CastT))
+        {
+            throw std::bad_any_cast();
+        }
+    }
 };
 
 
