@@ -42,14 +42,14 @@ public:
     }
 
     template<typename ValT, typename... Args>
-    std::decay_t<ValT>& emplace(Args&&... args)
+    std::decay_t<ValT>& emplace(Args&&... args) &
     {
         return data_.emplace<ValT>(std::forward<Args>(args)...);
     }
 
     template<typename ValT, typename InitListValT, typename... Args>
     std::decay_t<ValT>& emplace(std::initializer_list<InitListValT> initList,
-                                Args&&... args)
+                                Args&&... args) &
     {
         return data_.emplace<ValT>(initList, std::forward<Args>(args)...);
     }
