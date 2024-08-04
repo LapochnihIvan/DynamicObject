@@ -21,16 +21,16 @@ public:
     {}
 
     template<typename ValT, typename... Args >
-    explicit DinamicObject(std::in_place_type_t<ValT> inPlace,
+    explicit DinamicObject(std::in_place_type_t<ValT> type,
                            Args&&... args):
-        data_(inPlace, std::forward<Args>(args)...)
+        data_(type, std::forward<Args>(args)...)
     {}
 
     template<typename ValT, typename InitListValT, typename... Args >
-    explicit DinamicObject(std::in_place_type_t<ValT> inPlace,
+    explicit DinamicObject(std::in_place_type_t<ValT> type,
                            std::initializer_list<InitListValT> initList,
                            Args&&... args):
-        data_(inPlace, initList, std::forward<Args>(args)...)
+        data_(type, initList, std::forward<Args>(args)...)
     {}
 
     template<typename OtherT>
