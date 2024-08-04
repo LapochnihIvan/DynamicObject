@@ -20,6 +20,19 @@ public:
         data_(std::forward<OtherT>(other))
     {}
 
+    template<typename ValT, typename... Args >
+    explicit DinamicObject(std::in_place_type_t<ValT> inPlace,
+                           Args&&... args):
+        data_(inPlace, std::forward<Args>(args)...)
+    {}
+
+    template<typename ValueT, typename InitListValT, typename... Args >
+    explicit DinamicObject(std::in_place_type_t<ValueT> inPlace,
+                           std::initializer_list<InitListValT> initList,
+                           Args&&... args):
+        data_(inPlace, initList, std::forward<Args>(args)...)
+    {}
+
     template<typename OtherT>
     DinamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
     {
