@@ -13,6 +13,8 @@ generate_files_list(
 
 add_library(DinamicObject ${SOURCES})
 
+target_include_directories(DinamicObject PRIVATE include)
+
 if(NOT CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     set(DinamicObject_INCLUDE_DIRS
         ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
