@@ -21,7 +21,7 @@ public:
     {}
 
     template<typename OtherT>
-    DinamicObject& operator=(OtherT&& other) requires IsNotSelfT<OtherT>
+    DinamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
     {
         data_ = std::forward<OtherT>(other);
 
