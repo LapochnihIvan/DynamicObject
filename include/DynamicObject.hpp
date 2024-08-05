@@ -19,6 +19,12 @@ public:
     constexpr DynamicObject() noexcept = default;
 
     /*
+     * @brief Constructor from rvalue reference to std::any
+     * @param[in] other Value to be stored
+    */
+    DynamicObject(std::any&& other) noexcept;
+
+    /*
      * @brief Constructor from any type value
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @warnung May throws any exception thrown by the constructor of the
