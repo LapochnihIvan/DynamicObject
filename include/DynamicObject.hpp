@@ -68,6 +68,13 @@ public:
     {}
 
     /*
+     * @brief Assignment operator from rvalue reference to std::any
+     * @param[in] other Value to be stored
+     * @result Reference to this
+    */
+    DynamicObject& operator=(std::any&& other) & noexcept;
+
+    /*
      * @brief Assignment operator from any type except DynamicObject
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result Reference to this
