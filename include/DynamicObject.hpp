@@ -44,7 +44,7 @@ public:
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
     */
-    template<typename ValT, typename... Args >
+    template<typename ValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
                            Args&&... args):
         data_(type, std::forward<Args>(args)...)
@@ -61,7 +61,7 @@ public:
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
     */
-    template<typename ValT, typename InitListValT, typename... Args >
+    template<typename ValT, typename InitListValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
                            std::initializer_list<InitListValT> initList,
                            Args&&... args):
@@ -194,6 +194,41 @@ public:
     operator const TatgetT*() const & noexcept
     {
         return std::any_cast<TatgetT>(&data_);
+    }
+
+    /*
+     * @brief Wrapper over constructor
+     * type
+     * @param[in] type Type of contained value
+     * @param[in] args Arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
+    template<typename ValT, typename... Args>
+    static DynamicObject make(Args&&... args)
+    {
+        return DynamicObject(std::in_place_type_t<ValT>(),
+                             std::forward<Args>(args)...);
+    }
+
+    /*
+     * @brief Wrapper over constructor
+     * @param[in] type Type of contained value
+     * @param[in] initList First argument of contained value's construtor as
+     * std::initializer_list
+     * @param[in] args Other arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
+    template<typename ValT, typename InitListValT, typename... Args>
+    static DynamicObject make(std::initializer_list<InitListValT> initList,
+                              Args&&... args)
+    {
+        return DynamicObject(std::in_place_type_t<ValT>(),
+                             initList,
+                             std::forward<Args>(args)...);
     }
 
 private:
