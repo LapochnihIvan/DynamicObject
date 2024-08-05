@@ -106,7 +106,7 @@ public:
     }
 
     /*
-     * @brief Cast rvalue reference to DinamicObject to any type
+     * @brief Cast rvalue DinamicObject to any type
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -117,7 +117,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue reference to DinamicObject to any type
+     * @brief Cast lvalue DinamicObject to reference to any type
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -130,7 +130,7 @@ public:
     }
 
     /*
-     * @brief Cast const lvalue reference to DinamicObject to any type
+     * @brief Cast const lvalue DinamicObject to reference to any type
      * @warnung Throws std::bad_any_cast if TargetT and contained value's type
      * are different
     */
@@ -143,7 +143,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue reference to DinamicObject to any pointer type
+     * @brief Cast lvalue DinamicObject to any pointer type
      * @warnung Derefencing with other type than contained value's type is UB
     */
     template<typename TatgetT>
@@ -153,7 +153,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue reference to DinamicObject to any pointer on const
+     * @brief Cast lvalue DinamicObject to any pointer on const
      * type
      * @warnung Derefencing with other type than contained value's type is UB
     */
