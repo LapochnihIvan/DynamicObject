@@ -105,12 +105,22 @@ public:
         return data_.emplace<ValT>(initList, std::forward<Args>(args)...);
     }
 
+    /*
+     * @brief Cast rvalue reference to DinamicObject to any type
+     * @warnung Throws std::bad_any_cast if TargetT and type of contained value
+     * are different
+    */
     template<typename TatgetT>
     operator TatgetT() &&
     {
         return std::any_cast<TatgetT>(std::move(data_));
     }
 
+    /*
+     * @brief Cast lvalue reference to DinamicObject to any type
+     * @warnung Throws std::bad_any_cast if TargetT and type of contained value
+     * are different
+    */
     template<typename TatgetT>
     operator TatgetT&() &
     {
@@ -119,6 +129,11 @@ public:
         return *std::any_cast<TatgetT>(&data_);
     }
 
+    /*
+     * @brief Cast const lvalue reference to DinamicObject to any type
+     * @warnung Throws std::bad_any_cast if TargetT and contained value's type
+     * are different
+    */
     template<typename TatgetT>
     operator const TatgetT&() const &
     {
@@ -127,12 +142,21 @@ public:
         return *std::any_cast<const TatgetT>(&data_);
     }
 
+    /*
+     * @brief Cast lvalue reference to DinamicObject to any pointer type
+     * @warnung Derefencing with other type than contained value's type is UB
+    */
     template<typename TatgetT>
     operator TatgetT*() & noexcept
     {
         return std::any_cast<TatgetT>(&data_);
     }
 
+    /*
+     * @brief Cast lvalue reference to DinamicObject to any pointer on const
+     * type
+     * @warnung Derefencing with other type than contained value's type is UB
+    */
     template<typename TatgetT>
     operator const TatgetT*() const & noexcept
     {
