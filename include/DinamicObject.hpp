@@ -13,19 +13,47 @@ private:
         !std::is_base_of_v<T, DinamicObject>;
 
 public:
+    /*
+     * @brief DinamicObject's default constructor
+    */
     constexpr DinamicObject() noexcept = default;
 
+    /*
+     * @brief DinamicObject's constructor with value
+     * @param[in] other Value to be stored. If other is rvalue it will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
     template<typename OtherT>
     DinamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
         data_(std::forward<OtherT>(other))
     {}
 
+    /*
+     * @brief DinamicObject's constructor with in-place value creation
+     * @param[in] type Type of contained value
+     * @param[in] args Arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
     template<typename ValT, typename... Args >
     explicit DinamicObject(std::in_place_type_t<ValT> type,
                            Args&&... args):
         data_(type, std::forward<Args>(args)...)
     {}
 
+    /*
+     * @brief Constructor with in-place value creation with
+     * std::initializer_list
+     * @param[in] type Type of contained value
+     * @param[in] initList first argument of contained value's construtor as
+     * std::initializer_list
+     * @param[in] args Other arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
     template<typename ValT, typename InitListValT, typename... Args >
     explicit DinamicObject(std::in_place_type_t<ValT> type,
                            std::initializer_list<InitListValT> initList,
