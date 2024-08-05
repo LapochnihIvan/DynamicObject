@@ -75,12 +75,30 @@ public:
         return *this;
     }
 
+    /*
+     * @brief In-place value creation function
+     * std::initializer_list
+     * @param[in] args Arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
     template<typename ValT, typename... Args>
     std::decay_t<ValT>& emplace(Args&&... args) &
     {
         return data_.emplace<ValT>(std::forward<Args>(args)...);
     }
 
+    /*
+     * @brief In-place value creation function
+     * std::initializer_list
+     * @param[in] initList First argument of contained value's construtor as
+     * std::initializer_list
+     * @param[in] args Other Arguments of contained value's construtor
+     * If arguments are rvalue its will move
+     * @warnung May throws any exception thrown by the constructor of the
+     * contained type and std::bad_alloc
+    */
     template<typename ValT, typename InitListValT, typename... Args>
     std::decay_t<ValT>& emplace(std::initializer_list<InitListValT> initList,
                                 Args&&... args) &
