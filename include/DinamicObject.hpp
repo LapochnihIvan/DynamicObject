@@ -19,7 +19,7 @@ public:
     constexpr DinamicObject() noexcept = default;
 
     /*
-     * @brief DinamicObject's constructor with value
+     * @brief Constructor from any type value
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
@@ -30,7 +30,7 @@ public:
     {}
 
     /*
-     * @brief DinamicObject's constructor with in-place value creation
+     * @brief Constructor with in-place value creation
      * @param[in] type Type of contained value
      * @param[in] args Arguments of contained value's construtor
      * If arguments are rvalue its will move
