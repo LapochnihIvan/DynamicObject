@@ -133,9 +133,14 @@ public:
     template<typename TatgetT>
     operator TatgetT&() &
     {
-        validateCastType<TatgetT>();
+        TatgetT* const res(std::any_cast<TatgetT>(&data_));
 
-        return *std::any_cast<TatgetT>(&data_);
+        if (res == nullptr)
+        {
+            throw std::bad_any_cast();
+        }
+
+        return *res;
     }
 
     /*
@@ -147,9 +152,14 @@ public:
     template<typename TatgetT>
     operator const TatgetT&() const &
     {
-        validateCastType<TatgetT>();
+        const TatgetT* const res(std::any_cast<const TatgetT>(&data_));
 
-        return *std::any_cast<const TatgetT>(&data_);
+        if (res == nullptr)
+        {
+            throw std::bad_any_cast();
+        }
+
+        return res;
     }
 
     /*
@@ -177,15 +187,6 @@ public:
 
 private:
     std::any data_;
-
-    template<typename CastT>
-    void validateCastType()
-    {
-        if (data_.type() != typeid(CastT))
-        {
-            throw std::bad_any_cast();
-        }
-    }
 };
 
 
