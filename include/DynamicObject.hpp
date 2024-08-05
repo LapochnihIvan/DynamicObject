@@ -114,6 +114,7 @@ public:
 
     /*
      * @brief Cast rvalue DynamicObject to any type
+     * @result Contained value moved to TatgetT
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -125,6 +126,7 @@ public:
 
     /*
      * @brief Cast lvalue DynamicObject to reference to any type
+     * @result Reference to contained value
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -137,7 +139,8 @@ public:
     }
 
     /*
-     * @brief Cast const lvalue DynamicObject to reference to any type
+     * @brief Cast const lvalue DynamicObject to const reference to any type
+     * @result Const reference to contained value
      * @warnung Throws std::bad_any_cast if TargetT and contained value's type
      * are different
     */
@@ -151,7 +154,8 @@ public:
 
     /*
      * @brief Cast lvalue DynamicObject to any pointer type
-     * @warnung Derefencing with other type than contained value's type is UB
+     * @result Pointer to contained value. Return nullptr if TargetT and
+     * contained value's type are different
     */
     template<typename TatgetT>
     operator TatgetT*() & noexcept
@@ -162,7 +166,8 @@ public:
     /*
      * @brief Cast lvalue DynamicObject to any pointer on const
      * type
-     * @warnung Derefencing with other type than contained value's type is UB
+     * @result Pointer to const contained value. Return nullptr if TargetT and
+     * contained value's type are different
     */
     template<typename TatgetT>
     operator const TatgetT*() const & noexcept
