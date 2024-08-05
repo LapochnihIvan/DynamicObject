@@ -95,6 +95,7 @@ public:
      * @brief In-place value creation function
      * @param[in] args Arguments of contained value's construtor
      * If arguments are rvalue its will move
+     * @result Reference to the new contained object
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
     */
@@ -111,6 +112,7 @@ public:
      * std::initializer_list
      * @param[in] args Other Arguments of contained value's construtor
      * If arguments are rvalue its will move
+     * @result Reference to the new contained object
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
     */
