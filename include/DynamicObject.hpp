@@ -1,22 +1,22 @@
-#ifndef DINAMICOBJECT_DINAMICOBJECT_HPP
-#define DINAMICOBJECT_DINAMICOBJECT_HPP
+#ifndef DynamicObject_DynamicObject_HPP
+#define DynamicObject_DynamicObject_HPP
 
 
 #include <any>
 
 
-class DinamicObject
+class DynamicObject
 {
 private:
     template<typename T>
     static constexpr bool IsNotSelfT =
-        !std::is_base_of_v<T, DinamicObject>;
+        !std::is_base_of_v<T, DynamicObject>;
 
 public:
     /*
-     * @brief DinamicObject's default constructor
+     * @brief DynamicObject's default constructor
     */
-    constexpr DinamicObject() noexcept = default;
+    constexpr DynamicObject() noexcept = default;
 
     /*
      * @brief Constructor from any type value
@@ -25,7 +25,7 @@ public:
      * contained type and std::bad_alloc
     */
     template<typename OtherT>
-    DinamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
+    DynamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
         data_(std::forward<OtherT>(other))
     {}
 
@@ -38,7 +38,7 @@ public:
      * contained type and std::bad_alloc
     */
     template<typename ValT, typename... Args >
-    explicit DinamicObject(std::in_place_type_t<ValT> type,
+    explicit DynamicObject(std::in_place_type_t<ValT> type,
                            Args&&... args):
         data_(type, std::forward<Args>(args)...)
     {}
@@ -55,20 +55,20 @@ public:
      * contained type and std::bad_alloc
     */
     template<typename ValT, typename InitListValT, typename... Args >
-    explicit DinamicObject(std::in_place_type_t<ValT> type,
+    explicit DynamicObject(std::in_place_type_t<ValT> type,
                            std::initializer_list<InitListValT> initList,
                            Args&&... args):
         data_(type, initList, std::forward<Args>(args)...)
     {}
 
     /*
-     * @brief Assignment operator from any type except DinamicObject
+     * @brief Assignment operator from any type except DynamicObject
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @warnung May throws any exception thrown by the assignment operator of
      * the contained type and std::bad_alloc
     */
     template<typename OtherT>
-    DinamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
+    DynamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
     {
         data_ = std::forward<OtherT>(other);
 
@@ -106,7 +106,7 @@ public:
     }
 
     /*
-     * @brief Cast rvalue DinamicObject to any type
+     * @brief Cast rvalue DynamicObject to any type
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -117,7 +117,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue DinamicObject to reference to any type
+     * @brief Cast lvalue DynamicObject to reference to any type
      * @warnung Throws std::bad_any_cast if TargetT and type of contained value
      * are different
     */
@@ -130,7 +130,7 @@ public:
     }
 
     /*
-     * @brief Cast const lvalue DinamicObject to reference to any type
+     * @brief Cast const lvalue DynamicObject to reference to any type
      * @warnung Throws std::bad_any_cast if TargetT and contained value's type
      * are different
     */
@@ -143,7 +143,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue DinamicObject to any pointer type
+     * @brief Cast lvalue DynamicObject to any pointer type
      * @warnung Derefencing with other type than contained value's type is UB
     */
     template<typename TatgetT>
@@ -153,7 +153,7 @@ public:
     }
 
     /*
-     * @brief Cast lvalue DinamicObject to any pointer on const
+     * @brief Cast lvalue DynamicObject to any pointer on const
      * type
      * @warnung Derefencing with other type than contained value's type is UB
     */
@@ -177,4 +177,4 @@ private:
 };
 
 
-#endif //!DINAMICOBJECT_DINAMICOBJECT_HPP
+#endif //!DynamicObject_DynamicObject_HPP
