@@ -77,7 +77,6 @@ public:
 
     /*
      * @brief In-place value creation function
-     * std::initializer_list
      * @param[in] args Arguments of contained value's construtor
      * If arguments are rvalue its will move
      * @warnung May throws any exception thrown by the constructor of the
