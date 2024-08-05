@@ -47,7 +47,7 @@ public:
      * @brief Constructor with in-place value creation with
      * std::initializer_list
      * @param[in] type Type of contained value
-     * @param[in] initList first argument of contained value's construtor as
+     * @param[in] initList First argument of contained value's construtor as
      * std::initializer_list
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
