@@ -25,7 +25,8 @@ public:
     DynamicObject(std::any&& other) noexcept;
 
     /*
-     * @brief Constructor from any type value
+     * @brief Constructor from any type value except DynamicObject, it's
+     * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @warnung May throws any exception thrown by the constructor of the
      * contained type and std::bad_alloc
@@ -75,7 +76,8 @@ public:
     DynamicObject& operator=(std::any&& other) & noexcept;
 
     /*
-     * @brief Assignment operator from any type except DynamicObject
+     * @brief Assignment operator from any type except DynamicObject, it's
+     * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result Reference to this
      * @warnung May throws any exception thrown by the assignment operator of
