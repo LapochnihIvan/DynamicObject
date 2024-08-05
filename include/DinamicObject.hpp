@@ -61,6 +61,12 @@ public:
         data_(type, initList, std::forward<Args>(args)...)
     {}
 
+    /*
+     * @brief Assignment operator from any type except DinamicObject
+     * @param[in] other Value to be stored. If other is rvalue it will move
+     * @warnung May throws any exception thrown by the assignment operator of
+     * the contained type and std::bad_alloc
+    */
     template<typename OtherT>
     DinamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
     {
