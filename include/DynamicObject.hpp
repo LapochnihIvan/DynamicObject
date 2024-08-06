@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief File with declaration of DynamicObject
+*/
+
 #ifndef DynamicObject_DynamicObject_HPP
 #define DynamicObject_DynamicObject_HPP
 
@@ -5,6 +10,9 @@
 #include <any>
 
 
+/**
+ * @brief Class witch implements dinamic typization
+*/
 class DynamicObject
 {
 private:
@@ -13,36 +21,38 @@ private:
         !std::is_base_of_v<T, DynamicObject>;
 
 public:
-    /*
+    /**
      * @brief DynamicObject's default constructor
     */
     constexpr DynamicObject() noexcept = default;
 
-    /*
+    /**
      * @brief Constructor from rvalue reference to std::any
      * @param[in] other Value to be stored
     */
     DynamicObject(std::any&& other) noexcept;
 
-    /*
+    /**
      * @brief Constructor from any type value except DynamicObject, it's
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename OtherT>
     DynamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
         data_(std::forward<OtherT>(other))
     {}
 
-    /*
+    /**
      * @brief Constructor with in-place value creation
      * @param[in] type Type of contained value
-     * @param[in] args Arguments of contained value's construtor
-     * If arguments are rvalue its will move
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @param[in] args Arguments of contained value's construtor. If args are
+     * rvalue its will move
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
@@ -50,7 +60,7 @@ public:
         data_(type, std::forward<Args>(args)...)
     {}
 
-    /*
+    /**
      * @brief Constructor with in-place value creation with
      * std::initializer_list
      * @param[in] type Type of contained value
@@ -58,8 +68,9 @@ public:
      * std::initializer_list
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
@@ -68,20 +79,21 @@ public:
         data_(type, initList, std::forward<Args>(args)...)
     {}
 
-    /*
+    /**
      * @brief Assignment operator from rvalue reference to std::any
      * @param[in] other Value to be stored
      * @result Reference to this
     */
     DynamicObject& operator=(std::any&& other) & noexcept;
 
-    /*
+    /**
      * @brief Assignment operator from any type except DynamicObject, it's
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result Reference to this
-     * @warnung May throws any exception thrown by the assignment operator of
-     * the contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename OtherT>
     DynamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
@@ -91,13 +103,14 @@ public:
         return *this;
     }
 
-    /*
+    /**
      * @brief In-place value creation function
-     * @param[in] args Arguments of contained value's construtor
-     * If arguments are rvalue its will move
+     * @param[in] args Arguments of contained value's construtor. If args are
+     * rvalue its will move
      * @result Reference to the new contained object
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename... Args>
     std::decay_t<ValT>& emplace(Args&&... args) &
@@ -105,7 +118,7 @@ public:
         return data_.emplace<ValT>(std::forward<Args>(args)...);
     }
 
-    /*
+    /**
      * @brief In-place value creation function
      * std::initializer_list
      * @param[in] initList First argument of contained value's construtor as
@@ -113,8 +126,9 @@ public:
      * @param[in] args Other Arguments of contained value's construtor
      * If arguments are rvalue its will move
      * @result Reference to the new contained object
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     std::decay_t<ValT>& emplace(std::initializer_list<InitListValT> initList,
@@ -123,11 +137,11 @@ public:
         return data_.emplace<ValT>(initList, std::forward<Args>(args)...);
     }
 
-    /*
+    /**
      * @brief Cast rvalue DynamicObject to any type
      * @result Contained value moved to TatgetT
-     * @warnung Throws std::bad_any_cast if TargetT and type of contained value
-     * are different
+     * @throw std::bad_any_cast If TargetT and type of contained value are
+     * different
     */
     template<typename TatgetT>
     operator TatgetT() &&
@@ -135,11 +149,11 @@ public:
         return std::any_cast<TatgetT>(std::move(data_));
     }
 
-    /*
+    /**
      * @brief Cast lvalue DynamicObject to reference to any type
      * @result Reference to contained value
-     * @warnung Throws std::bad_any_cast if TargetT and type of contained value
-     * are different
+     * @throw std::bad_any_cast If TargetT and type of contained value are
+     * different
     */
     template<typename TatgetT>
     operator TatgetT&() &
@@ -154,11 +168,11 @@ public:
         return *res;
     }
 
-    /*
+    /**
      * @brief Cast const lvalue DynamicObject to const reference to any type
      * @result Const reference to contained value
-     * @warnung Throws std::bad_any_cast if TargetT and contained value's type
-     * are different
+     * @throw std::bad_any_cast If TargetT and type of contained value are
+     * different
     */
     template<typename TatgetT>
     operator const TatgetT&() const &
@@ -173,7 +187,7 @@ public:
         return res;
     }
 
-    /*
+    /**
      * @brief Cast lvalue DynamicObject to any pointer type
      * @result Pointer to contained value. Return nullptr if TargetT and
      * contained value's type are different
@@ -184,7 +198,7 @@ public:
         return std::any_cast<TatgetT>(&data_);
     }
 
-    /*
+    /**
      * @brief Cast lvalue DynamicObject to any pointer on const
      * type
      * @result Pointer to const contained value. Return nullptr if TargetT and
@@ -196,14 +210,15 @@ public:
         return std::any_cast<TatgetT>(&data_);
     }
 
-    /*
+    /**
      * @brief Wrapper over constructor
      * type
      * @param[in] type Type of contained value
-     * @param[in] args Arguments of contained value's construtor
-     * If arguments are rvalue its will move
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @param[in] args Arguments of contained value's construtor. If arguments
+     * are rvalue its will move
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename... Args>
     static DynamicObject make(Args&&... args)
@@ -212,15 +227,16 @@ public:
                              std::forward<Args>(args)...);
     }
 
-    /*
+    /**
      * @brief Wrapper over constructor
      * @param[in] type Type of contained value
      * @param[in] initList First argument of contained value's construtor as
      * std::initializer_list
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
-     * @warnung May throws any exception thrown by the constructor of the
-     * contained type and std::bad_alloc
+     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
+     * @throws Throws any exception thrown by the constructor of the contained
+     * type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     static DynamicObject make(std::initializer_list<InitListValT> initList,
