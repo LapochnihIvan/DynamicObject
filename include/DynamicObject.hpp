@@ -37,8 +37,8 @@ public:
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename OtherT>
     DynamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
@@ -51,8 +51,8 @@ public:
      * @param[in] args Arguments of contained value's construtor. If args are
      * rvalue its will move
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
@@ -69,8 +69,8 @@ public:
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     explicit DynamicObject(std::in_place_type_t<ValT> type,
@@ -92,8 +92,8 @@ public:
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result Reference to this
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename OtherT>
     DynamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
@@ -109,8 +109,8 @@ public:
      * rvalue its will move
      * @result Reference to the new contained object
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename... Args>
     std::decay_t<ValT>& emplace(Args&&... args) &
@@ -127,8 +127,8 @@ public:
      * If arguments are rvalue its will move
      * @result Reference to the new contained object
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     std::decay_t<ValT>& emplace(std::initializer_list<InitListValT> initList,
@@ -217,8 +217,8 @@ public:
      * @param[in] args Arguments of contained value's construtor. If arguments
      * are rvalue its will move
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename... Args>
     static DynamicObject make(Args&&... args)
@@ -235,8 +235,8 @@ public:
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throws Throws any exception thrown by the constructor of the contained
-     * type
+     * @throw std::exeption Throws any exception thrown by the constructor of
+     * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
     static DynamicObject make(std::initializer_list<InitListValT> initList,
