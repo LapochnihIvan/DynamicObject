@@ -17,7 +17,7 @@ function(generate_files_list)
         HEADERS_WITH_DEFINITIONS
     )
     cmake_parse_arguments(
-        "GFL"
+        "ARG"
         ""
         "${ONE_VALUE_KEYWORDS}"
         "${MULTI_VALUE_KEYWORDS}"
@@ -26,36 +26,36 @@ function(generate_files_list)
 
     set(
         HEADERS
-        ${GFL_CLASSES}
-        ${GFL_TEMPLATE_CLASSES}
-        ${GFL_FUNC_FILES}
-        ${GFL_TEMPLATE_FUNC_FILES}
-        ${GFL_HEADERS_WITH_DEFINITIONS}
+        ${ARG_CLASSES}
+        ${ARG_TEMPLATE_CLASSES}
+        ${ARG_FUNC_FILES}
+        ${ARG_TEMPLATE_FUNC_FILES}
+        ${ARG_HEADERS_WITH_DEFINITIONS}
     )
     _add_dir_and_extension(
         DEST HEADERS
-        DIR ${GFL_INCLUDE_DIR}
+        DIR ${ARG_INCLUDE_DIR}
         DIR_VAL_BY_DEFAULT "include/"
-        EXTENSION ${GFL_HEADERS_EXTENSION}
+        EXTENSION ${ARG_HEADERS_EXTENSION}
         EXTENSION_VAL_BY_DEFAULT ".hpp"
     )
 
     set(
         SRC
-        ${GFL_CLASSES}
-        ${GFL_FUNC_FILES}
-        ${GFL_MAIN}
+        ${ARG_CLASSES}
+        ${ARG_FUNC_FILES}
+        ${ARG_MAIN}
     )
     _add_dir_and_extension(
         DEST SRC
-        DIR ${GFL_SRC_DIR}
+        DIR ${ARG_SRC_DIR}
         DIR_VAL_BY_DEFAULT "src/"
         EXTENSION ".cpp"
-        EXTENSION_VAL_BY_DEFAULT ${GFL_SRC_EXTENSION}
+        EXTENSION_VAL_BY_DEFAULT ${ARG_SRC_EXTENSION}
     )
 
-    set(${GFL_RESULT_VAR} ${HEADERS} ${SRC})
-    return(PROPAGATE ${GFL_RESULT_VAR})
+    set(${ARG_RESULT_VAR} ${HEADERS} ${SRC})
+    return(PROPAGATE ${ARG_RESULT_VAR})
 endfunction()
 
 function(_add_dir_and_extension)
