@@ -5,9 +5,9 @@
 # constexpr, etc) to list of sources
 #
 # \param:DEST Name of variable witch will contain result
-# \param:INCLUDE_DIR Name of directory with headers. Optionaly begins with "/".
+# \param:INCLUDE_DIR Name of directory with headers. Optionaly ends with "/".
 # Value by default: "include/"
-# \param:SRC_DIR Name of directory with sources. Optionaly begins with "/".
+# \param:SRC_DIR Name of directory with sources. Optionaly ends with "/".
 # Value by default: "src/"
 # \param:HEADERS_EXTENSION Extension of headers. Optionaly begins with ".".
 # Value by default: ".hpp"
