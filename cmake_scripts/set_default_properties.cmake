@@ -1,3 +1,8 @@
+#! set_default_properties : Macro witch set default project properties
+#
+# This macro set CMAKE_BUILD_PARALLEL_LEVEL to processor's threads count,
+# set CMAKE_CXX_STANDARD to last stable standard and enable all warnings as
+# errors
 macro(set_default_properties)
     include(ProcessorCount)
     ProcessorCount(THREADS_COUNT)

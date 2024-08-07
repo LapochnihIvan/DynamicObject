@@ -1,3 +1,23 @@
+#! generate_files_list : Function witch generates list of sources for target
+#
+# This function transforms names of files with classes, classes templates,
+# functions, functions templates and definitions (define, enum, using,
+# constexpr, etc) to list of sources
+#
+# \param:DEST Name of variable witch will contain result
+# \param:INCLUDE_DIR Name of directory with headers.
+# Value by default: "include/"
+# \param:SRC_DIR Name of directory with sources.
+# Value by default: "src/"
+# \param:HEADERS_EXTENSION Extension of headers. Value by default: ".hpp"
+# \param:SRC_EXTENSION Extension of sources. Value by default: ".cpp"
+# \param:MAIN Name of file with main function
+# \groop:CLASSES List of files' names with classes
+# \groop:TEMPLATE_CLASSES List of files' names with classes templates
+# \groop:FUNC_FILES List of files' names with functions
+# \groop:TEMPLATE_FUNC_FILES List of files' names with templates functions
+# \groop:HEADERS_WITH_DEFINITIONS List of files' names with definitions (define,
+# enum, using, constexpr, etc)
 function(generate_files_list)
     set(
         ONE_VALUE_KEYWORDS
@@ -58,6 +78,7 @@ function(generate_files_list)
     return(PROPAGATE ${ARG_DEST})
 endfunction()
 
+# Private fuction
 function(_add_dir_and_extension)
     set(
         ONE_VALUE_KEYWORDS
