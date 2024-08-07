@@ -1,17 +1,21 @@
 function(generate_files_list)
     set(
+        ONE_VALUE_KEYWORDS
+        MAIN
+        RESULT_VAR
+    )
+    set(
         MULTI_VALUE_KEYWORDS
         CLASSES
         TEMPLATE_CLASSES
         FUNC_FILES
         TEMPLATE_FUNC_FILES
         HEADERS_WITH_DEFINITIONS
-        MAIN
     )
     cmake_parse_arguments(
         "GFL"
         ""
-        "RESULT_VAR"
+        "${ONE_VALUE_KEYWORDS}"
         "${MULTI_VALUE_KEYWORDS}"
         ${ARGN}
     )
