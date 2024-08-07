@@ -1,12 +1,12 @@
 function(generate_files_list)
     set(
         ONE_VALUE_KEYWORDS
+        DEST
         INCLUDE_DIR
         SRC_DIR
         HEADERS_EXTENSION
         SRC_EXTENSION
         MAIN
-        RESULT_VAR
     )
     set(
         MULTI_VALUE_KEYWORDS
@@ -54,8 +54,8 @@ function(generate_files_list)
         EXTENSION_VAL_BY_DEFAULT ${ARG_SRC_EXTENSION}
     )
 
-    set(${ARG_RESULT_VAR} ${HEADERS} ${SRC})
-    return(PROPAGATE ${ARG_RESULT_VAR})
+    set(${ARG_DEST} ${HEADERS} ${SRC})
+    return(PROPAGATE ${ARG_DEST})
 endfunction()
 
 function(_add_dir_and_extension)
@@ -94,4 +94,3 @@ function(_add_dir_and_extension)
 
     return(PROPAGATE ${ARG_DEST})
 endfunction()
-

@@ -7,8 +7,8 @@ include(cmake_scripts/generate_files_list.cmake)
 set_default_properties()
 
 generate_files_list(
+    DEST SOURCES
     CLASSES DynamicObject
-    RESULT_VAR SOURCES
 )
 
 add_library(DynamicObject ${SOURCES})
