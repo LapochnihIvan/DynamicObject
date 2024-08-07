@@ -5,12 +5,14 @@
 # constexpr, etc) to list of sources
 #
 # \param:DEST Name of variable witch will contain result
-# \param:INCLUDE_DIR Name of directory with headers.
+# \param:INCLUDE_DIR Name of directory with headers. Optionaly begins with "/".
 # Value by default: "include/"
-# \param:SRC_DIR Name of directory with sources.
+# \param:SRC_DIR Name of directory with sources. Optionaly begins with "/".
 # Value by default: "src/"
-# \param:HEADERS_EXTENSION Extension of headers. Value by default: ".hpp"
-# \param:SRC_EXTENSION Extension of sources. Value by default: ".cpp"
+# \param:HEADERS_EXTENSION Extension of headers. Optionaly begins with ".".
+# Value by default: ".hpp"
+# \param:SRC_EXTENSION Extension of sources. Optionaly begins with ".".
+# Value by default: ".cpp"
 # \param:MAIN Name of file with main function
 # \groop:CLASSES List of files' names with classes
 # \groop:TEMPLATE_CLASSES List of files' names with classes templates
@@ -18,6 +20,27 @@
 # \groop:TEMPLATE_FUNC_FILES List of files' names with templates functions
 # \groop:HEADERS_WITH_DEFINITIONS List of files' names with definitions (define,
 # enum, using, constexpr, etc)
+#
+# Example:
+# .. code-block:: cmake
+#     generate_files_list(
+#         DEST SOURCES
+#         INCLUDE_DIR "headers"
+#         SRC_DIR "sources"
+#         HEADERS_EXTENSION "h"
+#         SRC_EXTENSION "cxx"
+#         CLASSES MyClass
+#         TEMPLATE_CLASSES MyTemplateClass
+#         FUNC_FILES myFuncs
+#         TEMPLATE_FUNC_FILES myTemplateFuncs
+#         HEADERS_WITH_DEFINITIONS myDefinitions
+#     )
+#
+#     # SOURCES:
+#     #     headers/MyClass.h headers/MyTemplateClass.h headers/myFuncs.h
+#     #     headers/myTemplateFuncs.h headers/myDefinitions.h
+#     #     sources/MyClass.cxx sources/myFuncs.cxx
+#     add_executable(MyTarget ${SOURCES})
 function(generate_files_list)
     set(
         ONE_VALUE_KEYWORDS
