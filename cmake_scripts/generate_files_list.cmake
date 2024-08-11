@@ -1,4 +1,5 @@
-#! generate_files_list : Function witch generates list of sources for target
+#! generate_target_sources_list : Function witch generates list of sources for
+# target
 #
 # This function transforms names of files with classes, classes templates,
 # functions, functions templates and definitions (define, enum, using,
@@ -23,7 +24,7 @@
 #
 # Example:
 # .. code-block:: cmake
-#     generate_files_list(
+#     generate_target_sources_list(
 #         DEST SOURCES
 #         INCLUDE_DIR "headers"
 #         SRC_DIR "sources"
@@ -41,7 +42,7 @@
 #     #     headers/myTemplateFuncs.h headers/myDefinitions.h
 #     #     sources/MyClass.cxx sources/myFuncs.cxx
 #     add_executable(MyTarget ${SOURCES})
-function(generate_files_list)
+function(generate_target_sources_list)
     set(
         ONE_VALUE_KEYWORDS
         DEST

@@ -6,7 +6,7 @@ include(cmake_scripts/generate_files_list.cmake)
 
 set_default_properties()
 
-generate_files_list(
+generate_target_sources_list(
     DEST SOURCES
     CLASSES DynamicObject
 )
