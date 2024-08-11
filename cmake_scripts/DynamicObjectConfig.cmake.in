@@ -1,0 +1,2 @@
+@PACKAGE_INIT@
+set(DynamicObject_INCLUDE_DIRS @CMAKE_SOURCE_DIR@/include)

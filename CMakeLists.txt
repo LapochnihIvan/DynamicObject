@@ -3,6 +3,7 @@ project(DynamicObject)
 
 include(cmake_scripts/set_default_properties.cmake)
 include(cmake_scripts/generate_files_list.cmake)
+include(cmake_scripts/create_config_file.cmake)
 
 set_default_properties()
 
@@ -15,7 +16,4 @@ add_library(DynamicObject ${SOURCES})
 
 target_include_directories(DynamicObject PRIVATE include)
 
-if(NOT CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    set(DynamicObject_INCLUDE_DIRS
-        ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
-endif()
+create_config_file()
