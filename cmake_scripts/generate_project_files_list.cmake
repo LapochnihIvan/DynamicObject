@@ -1,11 +1,12 @@
-#! generate_target_sources_list : Function witch generates list of sources for
+#! generate_project_files_list : Function witch generates list of sources for
 # target
 #
 # This function transforms names of files with classes, classes templates,
 # functions, functions templates and definitions (define, enum, using,
 # constexpr, etc) to list of sources
 #
-# \param:DEST Name of variable witch will contain result
+# \param:DEST_HEADERS Name of variable witch will contain project headers
+# \param:DEST_SOURCES Name of variable witch will contain project sources
 # \param:INCLUDE_DIR Name of directory with headers. Optionaly ends with "/".
 # Value by default: "include/"
 # \param:SRC_DIR Name of directory with sources. Optionaly ends with "/".
@@ -24,8 +25,9 @@
 #
 # Example:
 # .. code-block:: cmake
-#     generate_target_sources_list(
-#         DEST SOURCES
+#     generate_project_files_list(
+#         DEST_HEADERS HEADERS
+#         DEST SOURCES SOURCES
 #         INCLUDE_DIR "headers"
 #         SRC_DIR "sources"
 #         HEADERS_EXTENSION "h"
@@ -36,16 +38,17 @@
 #         TEMPLATE_FUNC_FILES myTemplateFuncs
 #         HEADERS_WITH_DEFINITIONS myDefinitions
 #     )
-#
-#     # SOURCES:
+#     
+#     # HEADERS:
 #     #     headers/MyClass.h headers/MyTemplateClass.h headers/myFuncs.h
 #     #     headers/myTemplateFuncs.h headers/myDefinitions.h
-#     #     sources/MyClass.cxx sources/myFuncs.cxx
-#     add_executable(MyTarget ${SOURCES})
-function(generate_target_sources_list)
+#     # SOURCES: sources/MyClass.cxx sources/myFuncs.cxx
+#     add_executable(MyTarget ${HEADERS} ${SOURCES})
+function(generate_project_files_list)
     set(
         ONE_VALUE_KEYWORDS
-        DEST
+        DEST_HEADERS
+        DEST_SOURCES
         INCLUDE_DIR
         SRC_DIR
         HEADERS_EXTENSION
@@ -69,7 +72,7 @@ function(generate_target_sources_list)
     )
 
     set(
-        HEADERS
+        ${ARG_DEST_HEADERS}
         ${ARG_CLASSES}
         ${ARG_TEMPLATE_CLASSES}
         ${ARG_FUNC_FILES}
@@ -77,7 +80,7 @@ function(generate_target_sources_list)
         ${ARG_HEADERS_WITH_DEFINITIONS}
     )
     _add_dir_and_extension(
-        DEST HEADERS
+        DEST ${ARG_DEST_HEADERS}
         DIR ${ARG_INCLUDE_DIR}
         DIR_VAL_BY_DEFAULT "include/"
         EXTENSION ${ARG_HEADERS_EXTENSION}
@@ -85,13 +88,13 @@ function(generate_target_sources_list)
     )
 
     set(
-        SRC
+        ${ARG_DEST_SOURCES}
         ${ARG_CLASSES}
         ${ARG_FUNC_FILES}
         ${ARG_MAIN}
     )
     _add_dir_and_extension(
-        DEST SRC
+        DEST ${ARG_DEST_SOURCES}
         DIR ${ARG_SRC_DIR}
         DIR_VAL_BY_DEFAULT "src/"
         EXTENSION ".cpp"
@@ -99,7 +102,7 @@ function(generate_target_sources_list)
     )
 
     set(${ARG_DEST} ${HEADERS} ${SRC})
-    return(PROPAGATE ${ARG_DEST})
+    return(PROPAGATE ${ARG_DEST_HEADERS} ${ARG_DEST_SOURCES})
 endfunction()
 
 # Private fuction

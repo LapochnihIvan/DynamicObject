@@ -2,17 +2,18 @@ cmake_minimum_required(VERSION 3.27)
 project(DynamicObject)
 
 include(cmake_scripts/set_default_properties.cmake)
-include(cmake_scripts/generate_files_list.cmake)
+include(cmake_scripts/generate_project_files_list.cmake)
 include(cmake_scripts/create_config_file.cmake)
 
 set_default_properties()
 
-generate_target_sources_list(
-    DEST SOURCES
+generate_project_files_list(
+    DEST_HEADERS HEADERS
+    DEST_SOURCES SOURCES
     CLASSES DynamicObject
 )
 
-add_library(DynamicObject ${SOURCES})
+add_library(DynamicObject ${HEADERS} ${SOURCES})
 set(LIB_FILES_DIR "${CMAKE_SOURCE_DIR}/lib")
 set_target_properties(
     DynamicObject
