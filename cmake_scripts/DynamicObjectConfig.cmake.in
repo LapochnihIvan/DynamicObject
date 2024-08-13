@@ -3,7 +3,7 @@
 string(
     FIND
     ${CMAKE_CURRENT_LIST_DIR}
-    "/${CMAKE_INSTALL_LIBDIR}"
+    "/@CMAKE_INSTALL_LIBDIR@"
     LIB_PATH_BEGIN_INDEX
 )
 string(
