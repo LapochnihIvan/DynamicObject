@@ -21,7 +21,7 @@ function(create_config_files)
 
     set(CONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/DynamicObject")
     set(CONFIG_INSTALL_DIR ${CONFIG_DIR})
-    set(CONFIG_GENERATE_DIR ${CMAKE_SOURCE_DIR}/${CONFIG_DIR})
+    set(CONFIG_GENERATE_DIR "${CMAKE_SOURCE_DIR}/${CONFIG_DIR}")
 
     set(
         VERSION_FILE_PATH
