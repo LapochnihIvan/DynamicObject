@@ -38,7 +38,7 @@ function(create_config_files)
         CONFIG_FILE_PATH
         "${CONFIG_GENERATE_DIR}/DynamicObjectConfig.cmake"
     )
-    set(INCLUDE_DIR ${ARG_INCLUDE_DIR}) # Relative path from config directory
+    set(INCLUDE_DIR ${ARG_INCLUDE_DIR})
     configure_package_config_file(
         "cmake_scripts/DynamicObjectConfig.cmake.in"
         "${CONFIG_FILE_PATH}"
