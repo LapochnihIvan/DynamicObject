@@ -29,6 +29,8 @@ generate_project_files_list(
 )
 
 add_library(DynamicObject ${HEADERS} ${SOURCES})
+add_library(DynObj::DynamicObject ALIAS DynamicObject)
+
 set(LIB_FILES_DIR "${CMAKE_SOURCE_DIR}/lib")
 set_target_properties(
     DynamicObject
