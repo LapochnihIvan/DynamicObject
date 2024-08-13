@@ -5,7 +5,7 @@ function(create_config_file)
     include(GNUInstallDirs)
     include(CMakePackageConfigHelpers)
 
-    set(CONFIG_DIR "${CMAKE_SOURCE_DIR}/config")
+    set(CONFIG_DIR "${CMAKE_SOURCE_DIR}/lib/cmake/DynamicObject")
     set(
         CONGIG_INSTALL_DIR
         "${CMAKE_INSTALL_LIBDIR}/cmake/DynamicObject"
@@ -17,7 +17,9 @@ function(create_config_file)
         VERSION "0.1"
         COMPATIBILITY AnyNewerVersion # Guaranteed after first release
     )
+
     set(CONFIG_FILE_PATH "${CONFIG_DIR}/DynamicObjectConfig.cmake")
+    set(INCLUDE_DIRS "../../../include") # Relative path from config directory
     configure_package_config_file(
         "cmake_scripts/DynamicObjectConfig.cmake.in"
         "${CONFIG_FILE_PATH}"
