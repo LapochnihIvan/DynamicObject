@@ -1,4 +1,11 @@
 cmake_minimum_required(VERSION 3.27)
+
+if (NOT CMAKE_TOOLCHAIN_FILE AND
+    DEFINED VCPKG_ROOT)
+    # For Google test
+    set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+endif()
+
 project(DynamicObject)
 
 if (NOT DYNAMIC_OBJECT_INSTALL)
@@ -7,13 +14,6 @@ endif()
 
 if (NOT DYNAMIC_OBJECT_BUILD_TESTS)
     set(DYNAMIC_OBJECT_BUILD_TESTS ${PROJECT_IS_TOP_LEVEL})
-endif()
-
-if (DYNAMIC_OBJECT_BUILD_TESTS AND
-    NOT CMAKE_TOOLCHAIN_FILE AND
-    DEFINED VCPKG_ROOT)
-    # For Google test
-    set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 include(cmake_scripts/set_default_properties.cmake)
