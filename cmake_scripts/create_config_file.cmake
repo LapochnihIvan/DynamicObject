@@ -7,7 +7,7 @@ function(create_config_file)
 
     set(CONFIG_DIR "${CMAKE_SOURCE_DIR}/lib/cmake/DynamicObject")
     set(
-        CONGIG_INSTALL_DIR
+        CONFIG_INSTALL_DIR
         "${CMAKE_INSTALL_LIBDIR}/cmake/DynamicObject"
     )
 
@@ -23,11 +23,11 @@ function(create_config_file)
     configure_package_config_file(
         "cmake_scripts/DynamicObjectConfig.cmake.in"
         "${CONFIG_FILE_PATH}"
-        INSTALL_DESTINATION ${CONGIG_INSTALL_DIR}
+        INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
     )
     install(
         FILES ${VERSION_FILE_PATH} ${CONFIG_FILE_PATH}
         COMPONENT "${PROJECT_NAME}"
-        DESTINATION ${CONGIG_INSTALL_DIR}
+        DESTINATION ${CONFIG_INSTALL_DIR}
     )
 endfunction()
