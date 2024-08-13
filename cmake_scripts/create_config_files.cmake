@@ -7,6 +7,7 @@ function(create_config_files)
         DEST_VERSION_FILE_PATH
         DEST_CONFIG_FILE_PATH
         DEST_CONFIG_INSTALL_DIR
+        INCLUDE_DIR
     )
     cmake_parse_arguments(
         "ARG"
@@ -37,7 +38,7 @@ function(create_config_files)
         CONFIG_FILE_PATH
         "${CONFIG_GENERATE_DIR}/DynamicObjectConfig.cmake"
     )
-    set(INCLUDE_DIR "include") # Relative path from config directory
+    set(INCLUDE_DIR ${ARG_INCLUDE_DIR}) # Relative path from config directory
     configure_package_config_file(
         "cmake_scripts/DynamicObjectConfig.cmake.in"
         "${CONFIG_FILE_PATH}"
