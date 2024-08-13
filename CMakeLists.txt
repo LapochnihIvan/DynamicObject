@@ -66,5 +66,5 @@ if (DYNAMIC_OBJECT_INSTALL)
 endif()
 
 if (DYNAMIC_OBJECT_BUILD_TESTS)
-
+    add_subdirectory(tests)
 endif()
