@@ -126,7 +126,7 @@ function(_add_dir_and_extension)
     if (NOT ARG_DIR)
         set(ARG_DIR ${ARG_DIR_VAL_BY_DEFAULT})
     endif()
-    if (NOT ARG_DIR MATCHES "[*/]")
+    if (NOT ARG_DIR MATCHES "/$")
         set(ARG_DIR "${ARG_DIR}/")
     endif()
 
