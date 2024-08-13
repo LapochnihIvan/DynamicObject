@@ -3,7 +3,7 @@ project(DynamicObject)
 
 include(cmake_scripts/set_default_properties.cmake)
 include(cmake_scripts/generate_project_files_list.cmake)
-include(cmake_scripts/create_config_file.cmake)
+include(cmake_scripts/create_config_files.cmake)
 
 set_default_properties()
 
@@ -24,4 +24,4 @@ set_target_properties(
 
 target_include_directories(DynamicObject PRIVATE include)
 
-create_config_file()
+create_config_files()

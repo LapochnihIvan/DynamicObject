@@ -1,7 +1,7 @@
-#! create_config_file : Function witch creates config file
+#! create_config_files : Function witch creates config file
 #
 # This function creates DynamicObjectConfig.cmake for use find_package
-function(create_config_file)
+function(create_config_files)
     include(GNUInstallDirs)
     include(CMakePackageConfigHelpers)
 
