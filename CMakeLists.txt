@@ -31,7 +31,7 @@ generate_project_files_list(
 add_library(DynamicObject ${HEADERS} ${SOURCES})
 add_library(DynObj::DynamicObject ALIAS DynamicObject)
 
-set(LIB_FILES_DIR "${CMAKE_SOURCE_DIR}/lib")
+set(LIB_FILES_DIR "${CMAKE_SOURCE_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set_target_properties(
     DynamicObject
     PROPERTIES
@@ -63,7 +63,7 @@ if (DYNAMIC_OBJECT_INSTALL)
         COMPONENT "${PROJECT_NAME}"
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     )
-endif(())
+endif()
 
 if (DYNAMIC_OBJECT_BUILD_TESTS)
 
