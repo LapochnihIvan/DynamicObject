@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.27)
 project(DynamicObject)
 
+if (NOT DYNAMIC_OBJECT_INSTALL)
+    set(DYNAMIC_OBJECT_INSTALL ${PROJECT_IS_TOP_LEVEL})
+endif()
+
+if (NOT DYNAMIC_OBJECT_BUILD_TESTS)
+    set(DYNAMIC_OBJECT_BUILD_TESTS ${PROJECT_IS_TOP_LEVEL})
+endif()
+
 include(cmake_scripts/set_default_properties.cmake)
 include(cmake_scripts/generate_project_files_list.cmake)
 include(cmake_scripts/create_config_files.cmake)
@@ -30,8 +38,14 @@ create_config_files(
     DEST_CONFIG_INSTALL_DIR CONFIG_INSTALL_DIR
 )
 
-install(
-    FILES ${VERSION_FILE_PATH} ${CONFIG_FILE_PATH}
-    COMPONENT "${PROJECT_NAME}"
-    DESTINATION ${CONFIG_INSTALL_DIR}
-)
+if (DYNAMIC_OBJECT_INSTALL)
+    install(
+        FILES ${VERSION_FILE_PATH} ${CONFIG_FILE_PATH}
+        COMPONENT "${PROJECT_NAME}"
+        DESTINATION ${CONFIG_INSTALL_DIR}
+    )
+endif(())
+
+if (DYNAMIC_OBJECT_BUILD_TESTS)
+
+endif()
