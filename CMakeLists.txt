@@ -24,4 +24,14 @@ set_target_properties(
 
 target_include_directories(DynamicObject PRIVATE include)
 
-create_config_files()
+create_config_files(
+    DEST_VERSION_FILE_PATH VERSION_FILE_PATH
+    DEST_CONFIG_FILE_PATH CONFIG_FILE_PATH
+    DEST_CONFIG_INSTALL_DIR CONFIG_INSTALL_DIR
+)
+
+install(
+    FILES ${VERSION_FILE_PATH} ${CONFIG_FILE_PATH}
+    COMPONENT "${PROJECT_NAME}"
+    DESTINATION ${CONFIG_INSTALL_DIR}
+)
