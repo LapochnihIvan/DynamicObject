@@ -44,6 +44,16 @@ if (DYNAMIC_OBJECT_INSTALL)
         COMPONENT "${PROJECT_NAME}"
         DESTINATION ${CONFIG_INSTALL_DIR}
     )
+    install(
+        FILES "$<TARGET_FILE:DynamicObject>"
+        COMPONENT "${PROJECT_NAME}"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    )
+    install(
+        FILES ${HEADERS}
+        COMPONENT "${PROJECT_NAME}"
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    )
 endif(())
 
 if (DYNAMIC_OBJECT_BUILD_TESTS)
