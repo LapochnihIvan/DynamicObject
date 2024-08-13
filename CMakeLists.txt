@@ -9,6 +9,13 @@ if (NOT DYNAMIC_OBJECT_BUILD_TESTS)
     set(DYNAMIC_OBJECT_BUILD_TESTS ${PROJECT_IS_TOP_LEVEL})
 endif()
 
+if (DYNAMIC_OBJECT_BUILD_TESTS AND
+    NOT CMAKE_TOOLCHAIN_FILE AND
+    DEFINED VCPKG_ROOT)
+    # For Google test
+    set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+endif()
+
 include(cmake_scripts/set_default_properties.cmake)
 include(cmake_scripts/generate_project_files_list.cmake)
 include(cmake_scripts/create_config_files.cmake)
