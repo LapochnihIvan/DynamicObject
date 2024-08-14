@@ -14,17 +14,13 @@ GTEST_TEST(CastsTests, castRvalue)
 
     const std::string& src(obj);
 
-    try
+    auto validateCast = [&obj, &src]()
     {
         const std::string dest = std::move(obj);
-
         ASSERT_TRUE(src.empty());
         ASSERT_STREQ(dest.c_str(), "Some str");
-    }
-    catch (const std::exception&)
-    {
-        FAIL();
-    }
+    };
+    ASSERT_NO_THROW(validateCast());
 }
 
 GTEST_TEST(CastsTests, castRvalueTypeErr)
