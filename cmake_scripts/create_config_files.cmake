@@ -1,6 +1,15 @@
 #! create_config_files : Function witch creates config file
 #
-# This function creates DynamicObjectConfig.cmake for use find_package
+# This function creates DynamicObjectConfigVersion.cmake and
+# DynamicObjectConfig.cmake for use find_package
+#
+# \param:DEST_VERSION_FILE_PATH Name of variable witch will contain path to
+# DynamicObjectConfigVersion.cmake
+# \param:DEST_CONFIG_FILE_PATH Name of variable witch will contain path to
+# DynamicObjectConfig.cmake
+# \param:DEST_CONFIG_INSTALL_DIR Name of variable witch will contain install
+# destination of config files
+# \param:INCLUDE_DIR Name of directory to set DynamicObject_INCLUDE_DIRS
 function(create_config_files)
     set(
         ONE_VALUE_KEYWORDS
