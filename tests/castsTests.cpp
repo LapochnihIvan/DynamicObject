@@ -8,19 +8,19 @@
 
 GTEST_TEST(CastsTests, castLvalue)
 {
-    DynamicObject obj(0);
+    DynamicObject obj(10);
 
-    ASSERT_NO_THROW([[maybe_unused]] int dest(std::move(obj)));
+    int dest;
+    ASSERT_NO_THROW(dest = std::move(obj));
+    ASSERT_EQ(dest, 10);
 }
 
 GTEST_TEST(CastsTests, castLvalueErrorT)
 {
     DynamicObject obj(0);
 
-    float dest;
-    ASSERT_THROW(dest = std::move(obj), std::bad_any_cast);
-
-    (void)dest;
+    ASSERT_THROW([[maybe_unused]] const float dest(std::move(obj)),
+                  std::bad_any_cast);
 }
 
 GTEST_TEST(CastsTests, castRvalue)
@@ -43,7 +43,8 @@ GTEST_TEST(CastsTests, castRvalue)
 GTEST_TEST(CastsTests, castRvalueTypeErr)
 {
     DynamicObject obj(0);
-    ASSERT_THROW(const std::string dest = std::move(obj), std::bad_any_cast);
+    ASSERT_THROW([[maybe_unused]] const std::string dest = std::move(obj),
+                 std::bad_any_cast);
 }
 
 int main(int argc, char* argv[])
