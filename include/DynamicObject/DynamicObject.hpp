@@ -17,7 +17,7 @@ class DynamicObject
 {
 private:
     template<typename T>
-    static constexpr bool IsNotSelfT =
+    static constexpr bool IsNotDynamicObject =
         !std::is_base_of_v<
             std::remove_cv_t<std::remove_reference_t<T>>,
             DynamicObject
@@ -44,7 +44,7 @@ public:
      * the contained type
     */
     template<typename OtherT>
-    DynamicObject(OtherT&& other) requires IsNotSelfT<OtherT>:
+    DynamicObject(OtherT&& other) requires IsNotDynamicObject<OtherT>:
         data_(std::forward<OtherT>(other))
     {}
 
@@ -99,7 +99,8 @@ public:
      * the contained type
     */
     template<typename OtherT>
-    DynamicObject& operator=(OtherT&& other) & requires IsNotSelfT<OtherT>
+    DynamicObject& operator=(OtherT&& other) &
+        requires IsNotDynamicObject<OtherT>
     {
         data_ = std::forward<OtherT>(other);
 
