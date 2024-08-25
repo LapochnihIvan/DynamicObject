@@ -273,4 +273,14 @@ private:
 };
 
 
+namespace std
+{
+    template<>
+    inline void swap(DynamicObject& left, DynamicObject& right) noexcept
+    {
+        left.swap(right);
+    }
+}
+
+
 #endif //!DynamicObject_DynamicObject_HPP
