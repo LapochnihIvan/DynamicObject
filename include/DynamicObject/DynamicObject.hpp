@@ -263,7 +263,7 @@ public:
     static DynamicObject make(std::initializer_list<InitListValT> initList,
                               Args&&... args)
     {
-        return DynamicObject(std::in_place_type_t<ValT>(),
+        return DynamicObject(std::in_place_type<ValT>,
                              initList,
                              std::forward<Args>(args)...);
     }
