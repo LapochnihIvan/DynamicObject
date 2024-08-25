@@ -32,6 +32,7 @@ public:
     /**
      * @brief Constructor from rvalue reference to std::any
      * @param[in] other Value to be stored
+     * @result None
     */
     DynamicObject(std::any&& other) noexcept;
 
@@ -39,6 +40,7 @@ public:
      * @brief Constructor from any type value except DynamicObject, it's
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
+     * @result None
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
      * @throw std::exeption Throws any exception thrown by the constructor of
      * the contained type
@@ -53,6 +55,7 @@ public:
      * @param[in] type Type of contained value
      * @param[in] args Arguments of contained value's construtor. If args are
      * rvalue its will move
+     * @result None
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
      * @throw std::exeption Throws any exception thrown by the constructor of
      * the contained type
@@ -71,6 +74,7 @@ public:
      * std::initializer_list
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
+     * @result None
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
      * @throw std::exeption Throws any exception thrown by the constructor of
      * the contained type
@@ -220,6 +224,7 @@ public:
      * @param[in] type Type of contained value
      * @param[in] args Arguments of contained value's construtor. If arguments
      * are rvalue its will move
+     * @result New DynamicObject implementation
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
      * @throw std::exeption Throws any exception thrown by the constructor of
      * the contained type
@@ -238,6 +243,7 @@ public:
      * std::initializer_list
      * @param[in] args Other arguments of contained value's construtor
      * If arguments are rvalue its will move
+     * @result New DynamicObject implementation
      * @throw std::bad_alloc Throws if memory in freestore can't be allocated
      * @throw std::exeption Throws any exception thrown by the constructor of
      * the contained type
