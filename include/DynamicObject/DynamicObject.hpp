@@ -232,7 +232,6 @@ public:
     /**
      * @brief Wrapper over constructor
      * type
-     * @param[in] type Type of contained value
      * @param[in] args Arguments of contained value's constructor. If arguments
      * are rvalue its will move
      * @result New DynamicObject implementation
@@ -249,7 +248,6 @@ public:
 
     /**
      * @brief Wrapper over constructor
-     * @param[in] type Type of contained value
      * @param[in] initList First argument of contained value's constructor as
      * std::initializer_list
      * @param[in] args Other arguments of contained value's constructor
