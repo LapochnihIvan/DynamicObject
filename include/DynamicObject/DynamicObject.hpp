@@ -222,6 +222,14 @@ public:
     void reset() noexcept;
 
     /**
+     * @brief Method witch swaps the content of two DynamicObject
+     * implementations
+     * @param[in] other Object to swap
+     * @result None
+    */
+    void swap(DynamicObject& other) noexcept;
+
+    /**
      * @brief Wrapper over constructor
      * type
      * @param[in] type Type of contained value

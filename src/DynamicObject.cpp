@@ -16,3 +16,8 @@ void DynamicObject::reset() noexcept
 {
     data_.reset();
 }
+
+void DynamicObject::swap(DynamicObject& other) noexcept
+{
+    data_.swap(other.data_);
+}
