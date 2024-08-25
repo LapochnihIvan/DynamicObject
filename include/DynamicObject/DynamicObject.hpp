@@ -275,6 +275,12 @@ private:
 
 namespace std
 {
+    /**
+     * @brief std::swap overloading for DynamicObject
+     * @param[in] left Object to swap
+     * @param[in] right Object to swap
+     * @result None
+    */
     template<>
     inline void swap(DynamicObject& left, DynamicObject& right) noexcept
     {
