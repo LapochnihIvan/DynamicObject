@@ -17,8 +17,10 @@ class DynamicObject
 {
 private:
     template<typename T>
-    static constexpr bool IsNotDynamicObject =
-        !std::is_base_of_v<std::remove_cvref_t<T>, DynamicObject>;
+    static constexpr bool IsDynamicObject =
+        std::is_base_of_v<std::remove_cvref_t<T>, DynamicObject>;
+    template<typename T>
+    static constexpr bool IsNotDynamicObject = !IsDynamicObject<T>;
 
 public:
     /**
@@ -163,14 +165,7 @@ public:
     template<typename TargetT>
     operator TargetT&() &
     {
-        TargetT* const res(std::any_cast<TargetT>(&data_));
-
-        if (res == nullptr)
-        {
-            throw std::bad_any_cast();
-        }
-
-        return *res;
+        return getRefOnVal<DynamicObject, TargetT>(*this);
     }
 
     /**
@@ -182,14 +177,7 @@ public:
     template<typename TargetT>
     operator const TargetT&() const &
     {
-        const TargetT* const res(std::any_cast<const TargetT>(&data_));
-
-        if (res == nullptr)
-        {
-            throw std::bad_any_cast();
-        }
-
-        return res;
+        return getRefOnVal<const DynamicObject, const TargetT>(*this);
     }
 
     /**
@@ -213,6 +201,30 @@ public:
     operator const TargetT*() const & noexcept
     {
         return std::any_cast<TargetT>(&data_);
+    }
+
+    /**
+     * @brief Cast lvalue DynamicObject to reference to any type
+     * @result Reference to contained value
+     * @throw std::bad_any_cast If TargetT and type of contained value are
+     * different
+    */
+    template<typename TargetT>
+    TargetT& getValue()
+    {
+        return getRefOnVal<DynamicObject, TargetT>(*this);
+    }
+
+    /**
+     * @brief Cast lvalue DynamicObject to reference to any type
+     * @result Const reference to contained value
+     * @throw std::bad_any_cast If TargetT and type of contained value are
+     * different
+    */
+    template<typename TargetT>
+    const TargetT& getValue() const
+    {
+        return getRefOnVal<const DynamicObject, const TargetT>(*this);
     }
 
     /**
@@ -268,6 +280,20 @@ public:
 
 private:
     std::any data_;
+
+    template<typename SrcT, typename TargetT>
+    TargetT& getRefOnVal(const DynamicObject& src)
+        requires IsDynamicObject<SrcT>
+    {
+        TargetT* const res(std::any_cast<TargetT>(&src.data_));
+
+        if (res == nullptr)
+        {
+            throw std::bad_any_cast();
+        }
+
+        return *res;
+    }
 };
 
 
