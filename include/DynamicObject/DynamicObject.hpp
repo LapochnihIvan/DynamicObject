@@ -18,10 +18,7 @@ class DynamicObject
 private:
     template<typename T>
     static constexpr bool IsNotDynamicObject =
-        !std::is_base_of_v<
-            std::remove_cv_t<std::remove_reference_t<T>>,
-            DynamicObject
-        >;
+        !std::is_base_of_v<std::remove_cvref_t<T>, DynamicObject>;
 
 public:
     /**
