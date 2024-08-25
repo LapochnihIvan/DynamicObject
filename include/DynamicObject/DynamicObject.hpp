@@ -11,7 +11,7 @@
 
 
 /**
- * @brief Class witch implements dinamic typization
+ * @brief Class witch implements dynamic typization
 */
 class DynamicObject
 {
@@ -38,8 +38,8 @@ public:
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result None
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename OtherT>
@@ -50,11 +50,11 @@ public:
     /**
      * @brief Constructor with in-place value creation
      * @param[in] type Type of contained value
-     * @param[in] args Arguments of contained value's construtor. If args are
+     * @param[in] args Arguments of contained value's constructor. If args are
      * rvalue its will move
      * @result None
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename... Args>
@@ -67,13 +67,13 @@ public:
      * @brief Constructor with in-place value creation with
      * std::initializer_list
      * @param[in] type Type of contained value
-     * @param[in] initList First argument of contained value's construtor as
+     * @param[in] initList First argument of contained value's constructor as
      * std::initializer_list
-     * @param[in] args Other arguments of contained value's construtor
+     * @param[in] args Other arguments of contained value's constructor
      * If arguments are rvalue its will move
      * @result None
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
@@ -95,8 +95,8 @@ public:
      * inheritors and rvalue reference to std::any
      * @param[in] other Value to be stored. If other is rvalue it will move
      * @result Reference to this
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename OtherT>
@@ -110,11 +110,11 @@ public:
 
     /**
      * @brief In-place value creation function
-     * @param[in] args Arguments of contained value's construtor. If args are
+     * @param[in] args Arguments of contained value's constructor. If args are
      * rvalue its will move
      * @result Reference to the new contained object
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename... Args>
@@ -126,13 +126,13 @@ public:
     /**
      * @brief In-place value creation function
      * std::initializer_list
-     * @param[in] initList First argument of contained value's construtor as
+     * @param[in] initList First argument of contained value's constructor as
      * std::initializer_list
-     * @param[in] args Other Arguments of contained value's construtor
+     * @param[in] args Other Arguments of contained value's constructor
      * If arguments are rvalue its will move
      * @result Reference to the new contained object
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
@@ -144,14 +144,14 @@ public:
 
     /**
      * @brief Cast rvalue DynamicObject to any type
-     * @result Contained value moved to TatgetT
+     * @result Contained value moved to TargetT
      * @throw std::bad_any_cast If TargetT and type of contained value are
      * different
     */
-    template<typename TatgetT>
-    operator TatgetT() &&
+    template<typename TargetT>
+    operator TargetT() &&
     {
-        return std::any_cast<TatgetT>(std::move(data_));
+        return std::any_cast<TargetT>(std::move(data_));
     }
 
     /**
@@ -160,10 +160,10 @@ public:
      * @throw std::bad_any_cast If TargetT and type of contained value are
      * different
     */
-    template<typename TatgetT>
-    operator TatgetT&() &
+    template<typename TargetT>
+    operator TargetT&() &
     {
-        TatgetT* const res(std::any_cast<TatgetT>(&data_));
+        TargetT* const res(std::any_cast<TargetT>(&data_));
 
         if (res == nullptr)
         {
@@ -179,10 +179,10 @@ public:
      * @throw std::bad_any_cast If TargetT and type of contained value are
      * different
     */
-    template<typename TatgetT>
-    operator const TatgetT&() const &
+    template<typename TargetT>
+    operator const TargetT&() const &
     {
-        const TatgetT* const res(std::any_cast<const TatgetT>(&data_));
+        const TargetT* const res(std::any_cast<const TargetT>(&data_));
 
         if (res == nullptr)
         {
@@ -197,10 +197,10 @@ public:
      * @result Pointer to contained value. Return nullptr if TargetT and
      * contained value's type are different
     */
-    template<typename TatgetT>
-    operator TatgetT*() & noexcept
+    template<typename TargetT>
+    operator TargetT*() & noexcept
     {
-        return std::any_cast<TatgetT>(&data_);
+        return std::any_cast<TargetT>(&data_);
     }
 
     /**
@@ -209,10 +209,10 @@ public:
      * @result Pointer to const contained value. Return nullptr if TargetT and
      * contained value's type are different
     */
-    template<typename TatgetT>
-    operator const TatgetT*() const & noexcept
+    template<typename TargetT>
+    operator const TargetT*() const & noexcept
     {
-        return std::any_cast<TatgetT>(&data_);
+        return std::any_cast<TargetT>(&data_);
     }
 
     /**
@@ -225,11 +225,11 @@ public:
      * @brief Wrapper over constructor
      * type
      * @param[in] type Type of contained value
-     * @param[in] args Arguments of contained value's construtor. If arguments
+     * @param[in] args Arguments of contained value's constructor. If arguments
      * are rvalue its will move
      * @result New DynamicObject implementation
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename... Args>
@@ -242,13 +242,13 @@ public:
     /**
      * @brief Wrapper over constructor
      * @param[in] type Type of contained value
-     * @param[in] initList First argument of contained value's construtor as
+     * @param[in] initList First argument of contained value's constructor as
      * std::initializer_list
-     * @param[in] args Other arguments of contained value's construtor
+     * @param[in] args Other arguments of contained value's constructor
      * If arguments are rvalue its will move
      * @result New DynamicObject implementation
-     * @throw std::bad_alloc Throws if memory in freestore can't be allocated
-     * @throw std::exeption Throws any exception thrown by the constructor of
+     * @throw std::bad_alloc Throws if memory in free store can't be allocated
+     * @throw std::exception Throws any exception thrown by the constructor of
      * the contained type
     */
     template<typename ValT, typename InitListValT, typename... Args>
