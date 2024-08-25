@@ -216,6 +216,12 @@ public:
     }
 
     /**
+     * @brief Method witch destroys the contained value
+     * @result None
+    */
+    void reset() noexcept;
+
+    /**
      * @brief Wrapper over constructor
      * type
      * @param[in] type Type of contained value

@@ -11,3 +11,8 @@ DynamicObject& DynamicObject::operator=(std::any&& other) & noexcept
 
     return *this;
 }
+
+void DynamicObject::reset() noexcept
+{
+    data_.reset();
+}
